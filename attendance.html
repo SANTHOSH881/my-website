@@ -76,28 +76,49 @@
     </div>
 
 
-    <script>
+<script>
 
-        function calculateAttendance() {
+    function calculateAttendance() {
 
-            let conducted = Number(document.getElementById("conducted").value);
-            let attended = Number(document.getElementById("attended").value);
+        let conducted = Number(document.getElementById("conducted").value);
+        let attended = Number(document.getElementById("attended").value);
 
-            if (conducted <= 0 || attended < 0 || attended > conducted) {
-                document.getElementById("result").innerHTML =
-                    "❌ Please enter valid values.";
-                return;
-            }
-
-            let percentage = (attended / conducted) * 100;
-
+        if (conducted <= 0 || attended < 0 || attended > conducted) {
             document.getElementById("result").innerHTML =
-                "Your attendance is: <b>" +
-                percentage.toFixed(2) +
-                "%</b>";
+                "❌ Please enter valid values.";
+            return;
         }
 
-    </script>
+        let percentage = (attended / conducted) * 100;
+
+        let result = "Your attendance is: <b>" +
+                     percentage.toFixed(2) +
+                     "%</b><br><br>";
+
+        if (percentage >= 75) {
+
+            let canMiss = Math.floor(attended / 0.75 - conducted);
+
+            result += "You can miss <b>" +
+                      canMiss +
+                      "</b> more class(es) and stay at 75%.";
+
+        } else {
+
+            let needToAttend = Math.ceil(
+                (0.75 * conducted - attended) / 0.25
+            );
+
+            result += "You need to attend <b>" +
+                      needToAttend +
+                      "</b> consecutive class(es) to reach 75%.";
+
+        }
+
+        document.getElementById("result").innerHTML = result;
+    }
+
+</script>
 
 </body>
 </html>
