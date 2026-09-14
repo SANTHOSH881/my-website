@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance Calculator - StudentCalc Hub</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .calculator {
+            background: white;
+            max-width: 400px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        input {
+            width: 90%;
+            padding: 12px;
+            margin: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 12px 25px;
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1d4ed8;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        a {
+            display: block;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="calculator">
+
+        <h1>📊 Attendance Calculator</h1>
+
+        <p>Calculate your attendance percentage</p>
+
+        <input type="number" id="conducted" placeholder="Classes Conducted">
+
+        <input type="number" id="attended" placeholder="Classes Attended">
+
+        <br>
+
+        <button onclick="calculateAttendance()">Calculate</button>
+
+        <div id="result"></div>
+
+        <a href="index.html">← Back to StudentCalc Hub</a>
+
+    </div>
+
+
+    <script>
+
+        function calculateAttendance() {
+
+            let conducted = Number(document.getElementById("conducted").value);
+            let attended = Number(document.getElementById("attended").value);
+
+            if (conducted <= 0 || attended < 0 || attended > conducted) {
+                document.getElementById("result").innerHTML =
+                    "❌ Please enter valid values.";
+                return;
+            }
+
+            let percentage = (attended / conducted) * 100;
+
+            document.getElementById("result").innerHTML =
+                "Your attendance is: <b>" +
+                percentage.toFixed(2) +
+                "%</b>";
+        }
+
+    </script>
+
+</body>
+</html>
