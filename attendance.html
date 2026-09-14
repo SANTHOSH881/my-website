@@ -67,8 +67,8 @@
 
         <br>
 
-        <button onclick="calculateAttendance()">Calculate</button>
-
+       <button onclick="calculateAttendance()">Calculate</button>
+<button onclick="clearCalculator()">Clear</button>
         <div id="result"></div>
 
         <a href="index.html">← Back to StudentCalc Hub</a>
@@ -117,6 +117,11 @@
 
         document.getElementById("result").innerHTML = result;
     }
+    function clearCalculator() {
+    document.getElementById("conducted").value = "";
+    document.getElementById("attended").value = "";
+    document.getElementById("result").innerHTML = "";
+}
 
 </script>
 
