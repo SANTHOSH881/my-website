@@ -159,56 +159,184 @@ function addSubject() {
 function calculateSGPA() {
 
     let grades = document.querySelectorAll(".grade");
-
     let credits = document.querySelectorAll(".credits");
 
     let totalPoints = 0;
-
     let totalCredits = 0;
-
 
     if (grades.length === 0) {
 
         alert("Please add at least one subject.");
-
         return;
     }
-
 
     for (let i = 0; i < grades.length; i++) {
 
         let grade = Number(grades[i].value);
-
         let credit = Number(credits[i].value);
-
 
         if (credit <= 0) {
 
             alert("Please enter valid credits for all subjects.");
-
             return;
         }
 
-
         totalPoints += grade * credit;
-
         totalCredits += credit;
-
     }
-
 
     let sgpa = totalPoints / totalCredits;
 
 
-    let result = document.getElementById("result");
+    /* Variables for result */
 
-    result.innerHTML =
-        "Your SGPA is: <b>" +
-        sgpa.toFixed(2) +
-        "</b>";
+    let emoji;
+    let emojiClass;
+    let title;
+    let message;
+    let backgroundColor;
 
-    result.style.display = "block";
 
+    /* 9.5 - 10 */
+
+    if (sgpa >= 9.5) {
+
+        emoji = "🗿";
+        emojiClass = "emoji-legendary";
+        title = "LEGENDARY";
+        message = "You're built different. Absolute academic sigma!";
+
+        backgroundColor = "#70d68c";
+    }
+
+
+    /* 9.0 - 9.49 */
+
+    else if (sgpa >= 9.0) {
+
+        emoji = "🔥";
+        emojiClass = "emoji-beast";
+        title = "BEAST MODE";
+        message = "That's an insane SGPA. Keep destroying those exams!";
+
+        backgroundColor = "#8fdb7a";
+    }
+
+
+    /* 8.0 - 8.99 */
+
+    else if (sgpa >= 8.0) {
+
+        emoji = "😏";
+        emojiClass = "emoji-confident";
+        title = "VERY CONFIDENT";
+        message = "You're doing seriously well!";
+
+        backgroundColor = "#a8df85";
+    }
+
+
+    /* 7.0 - 7.99 */
+
+    else if (sgpa >= 7.0) {
+
+        emoji = "😎";
+        emojiClass = "emoji-good";
+        title = "DOING GOOD";
+        message = "Solid performance. Keep pushing!";
+
+        backgroundColor = "#c0e69a";
+    }
+
+
+    /* 6.0 - 6.99 */
+
+    else if (sgpa >= 6.0) {
+
+        emoji = "🙂";
+        emojiClass = "emoji-okay";
+        title = "DECENT";
+        message = "Not bad! There's still room to level up.";
+
+        backgroundColor = "#e3e59b";
+    }
+
+
+    /* 5.0 - 5.99 */
+
+    else if (sgpa >= 5.0) {
+
+        emoji = "😐";
+        emojiClass = "emoji-improve";
+        title = "NEEDS IMPROVEMENT";
+        message = "Time to put in a little more effort.";
+
+        backgroundColor = "#f0c77a";
+    }
+
+
+    /* 4.0 - 4.99 */
+
+    else if (sgpa >= 4.0) {
+
+        emoji = "😟";
+        emojiClass = "emoji-danger";
+        title = "DANGER ZONE";
+        message = "Careful! Your next semester needs attention.";
+
+        backgroundColor = "#ed9270";
+    }
+
+
+    /* Below 4 */
+
+    else {
+
+        emoji = "💀";
+        emojiClass = "emoji-failed";
+        title = "ACADEMIC DAMAGE";
+        message = "Bro... we need to talk about your study plan 💀";
+
+        backgroundColor = "#d95c68";
+    }
+
+
+    let result = `
+
+        <div class="result-content">
+
+            <div class="result-text">
+
+                Your SGPA is:
+                <b>${sgpa.toFixed(2)}</b>
+
+                <br><br>
+
+                <strong>${title}</strong>
+
+                <br><br>
+
+                ${message}
+
+            </div>
+
+
+            <div class="result-emoji ${emojiClass}">
+                ${emoji}
+            </div>
+
+        </div>
+
+    `;
+
+
+    let resultBox = document.getElementById("result");
+
+    resultBox.innerHTML = result;
+
+    resultBox.style.display = "block";
+
+    resultBox.style.backgroundColor = backgroundColor;
 }
 
 
