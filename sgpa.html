@@ -1,256 +1,122 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>SGPA Calculator - StudentCalc Hub</title>
 
     <style>
 
-        * {
-            box-sizing: border-box;
-        }
-
         body {
             font-family: Arial, sans-serif;
-            background: #f5f7fb;
-            margin: 0;
-            padding: 30px;
+            background-color: #f4f6f8;
+            text-align: center;
+            padding: 40px;
         }
 
         .calculator {
-            max-width: 900px;
-            margin: auto;
             background: white;
+            max-width: 600px;
+            margin: auto;
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .description {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .semester {
-            margin-bottom: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         select,
         input {
             padding: 10px;
+            margin: 5px;
             font-size: 15px;
-            width: 100%;
-            margin-top: 5px;
-        }
-
-        .subject {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 15px;
-            align-items: end;
-        }
-
-        .subject label {
-            font-size: 14px;
         }
 
         button {
-            padding: 11px 20px;
+            padding: 12px 20px;
+            margin: 10px 5px;
+            background-color: #2563eb;
+            color: white;
             border: none;
-            border-radius: 7px;
-            cursor: pointer;
+            border-radius: 6px;
             font-size: 15px;
+            cursor: pointer;
         }
 
-        .add-btn {
-            background: #16a34a;
-            color: white;
-            margin-top: 10px;
+        button:hover {
+            background-color: #1d4ed8;
         }
 
-        .calculate-btn {
-            background: #2563eb;
-            color: white;
-            margin-top: 20px;
-        }
-
-        .clear-btn {
-            background: #dc2626;
-            color: white;
-            margin-top: 20px;
-            margin-left: 10px;
+        .subject {
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #f4f6f8;
+            border-radius: 8px;
         }
 
         #result {
-            text-align: center;
-            font-size: 22px;
-            margin-top: 25px;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #dbeafe;
+            border-radius: 8px;
+            font-size: 20px;
+            display: none;
         }
 
-        .back {
+        a {
             display: block;
-            text-align: center;
-            margin-top: 25px;
-        }
-
-        @media (max-width: 600px) {
-
-            .subject {
-                grid-template-columns: 1fr;
-            }
-
+            margin-top: 20px;
         }
 
     </style>
-
 </head>
 
 <body>
 
-<div class="calculator">
+    <div class="calculator">
 
-    <h1>🎓 SGPA Calculator</h1>
+        <h1>🎓 SGPA Calculator</h1>
 
-    <p class="description">
-        Calculate your Semester Grade Point Average
-    </p>
+        <p>Calculate your Semester Grade Point Average</p>
 
+        <br>
 
-    <div class="semester">
-
-        <label><b>Select Semester</b></label>
+        <label>Select Semester:</label>
 
         <select id="semester">
 
-            <option>1st Semester</option>
-            <option>2nd Semester</option>
-            <option>3rd Semester</option>
-            <option>4th Semester</option>
-            <option>5th Semester</option>
-            <option>6th Semester</option>
-            <option>7th Semester</option>
-            <option>8th Semester</option>
+            <option value="1">1st Semester</option>
+            <option value="2">2nd Semester</option>
+            <option value="3">3rd Semester</option>
+            <option value="4">4th Semester</option>
+            <option value="5">5th Semester</option>
+            <option value="6">6th Semester</option>
+            <option value="7">7th Semester</option>
+            <option value="8">8th Semester</option>
 
         </select>
 
-    </div>
+        <div id="subjects"></div>
 
+        <button onclick="addSubject()">➕ Add Subject</button>
 
-    <h3>Subjects</h3>
+        <br>
 
-    <div id="subjects">
+        <button onclick="calculateSGPA()">Calculate SGPA</button>
 
+        <button onclick="clearCalculator()">Clear</button>
 
-        <div class="subject">
+        <div id="result"></div>
 
-            <div>
-                <label>Subject</label>
-
-                <select class="subject-name">
-
-                    <option>Mathematics</option>
-                    <option>Physics</option>
-                    <option>Chemistry</option>
-                    <option>Programming</option>
-                    <option>Python</option>
-                    <option>Java</option>
-                    <option>Data Structures</option>
-                    <option>Database Management Systems</option>
-                    <option>Computer Networks</option>
-                    <option>Operating Systems</option>
-                    <option>Artificial Intelligence</option>
-                    <option>Machine Learning</option>
-                    <option>Deep Learning</option>
-                    <option>Software Engineering</option>
-                    <option>Web Technologies</option>
-                    <option>Computer Organization</option>
-                    <option>Discrete Mathematics</option>
-                    <option>Statistics</option>
-                    <option>English</option>
-                    <option>Environmental Science</option>
-                    <option>Custom Subject</option>
-
-                </select>
-
-            </div>
-
-
-            <div>
-
-                <label>Credits</label>
-
-                <input
-                    type="number"
-                    class="credits"
-                    min="1"
-                    max="10"
-                    placeholder="Credits">
-
-            </div>
-
-
-            <div>
-
-                <label>Grade</label>
-
-                <select class="grade">
-
-                    <option value="10">O / 10</option>
-                    <option value="9">A+ / 9</option>
-                    <option value="8">A / 8</option>
-                    <option value="7">B+ / 7</option>
-                    <option value="6">B / 6</option>
-                    <option value="5">C / 5</option>
-                    <option value="4">D / 4</option>
-                    <option value="0">F / 0</option>
-
-                </select>
-
-            </div>
-
-        </div>
-
+        <a href="index.html">← Back to StudentCalc Hub</a>
 
     </div>
-
-
-    <button class="add-btn" onclick="addSubject()">
-        + Add Subject
-    </button>
-
-    <br>
-
-    <button class="calculate-btn" onclick="calculateSGPA()">
-        Calculate SGPA
-    </button>
-
-    <button class="clear-btn" onclick="clearCalculator()">
-        Clear
-    </button>
-
-
-    <div id="result"></div>
-
-
-    <a class="back" href="index.html">
-        ← Back to StudentCalc Hub
-    </a>
-
-</div>
 
 
 <script>
 
+let subjectCount = 0;
+
+
 function addSubject() {
+
+    subjectCount++;
 
     let subjects = document.getElementById("subjects");
 
@@ -260,103 +126,73 @@ function addSubject() {
 
     subject.innerHTML = `
 
-        <div>
+        <label>Subject ${subjectCount}</label>
 
-            <label>Subject</label>
+        <br>
 
-            <select class="subject-name">
+        <select class="grade">
 
-                <option>Mathematics</option>
-                <option>Physics</option>
-                <option>Chemistry</option>
-                <option>Programming</option>
-                <option>Python</option>
-                <option>Java</option>
-                <option>Data Structures</option>
-                <option>Database Management Systems</option>
-                <option>Computer Networks</option>
-                <option>Operating Systems</option>
-                <option>Artificial Intelligence</option>
-                <option>Machine Learning</option>
-                <option>Deep Learning</option>
-                <option>Software Engineering</option>
-                <option>Web Technologies</option>
-                <option>Computer Organization</option>
-                <option>Discrete Mathematics</option>
-                <option>Statistics</option>
-                <option>English</option>
-                <option>Environmental Science</option>
-                <option>Custom Subject</option>
+            <option value="10">O - 10</option>
+            <option value="9">A+ - 9</option>
+            <option value="8">A - 8</option>
+            <option value="7">B+ - 7</option>
+            <option value="6">B - 6</option>
+            <option value="5">C - 5</option>
+            <option value="4">D - 4</option>
+            <option value="0">F - 0</option>
 
-            </select>
+        </select>
 
-        </div>
-
-
-        <div>
-
-            <label>Credits</label>
-
-            <input
-                type="number"
-                class="credits"
-                min="1"
-                max="10"
-                placeholder="Credits">
-
-        </div>
-
-
-        <div>
-
-            <label>Grade</label>
-
-            <select class="grade">
-
-                <option value="10">O / 10</option>
-                <option value="9">A+ / 9</option>
-                <option value="8">A / 8</option>
-                <option value="7">B+ / 7</option>
-                <option value="6">B / 6</option>
-                <option value="5">C / 5</option>
-                <option value="4">D / 4</option>
-                <option value="0">F / 0</option>
-
-            </select>
-
-        </div>
+        <input
+            type="number"
+            class="credits"
+            placeholder="Credits"
+            min="1"
+        >
 
     `;
 
     subjects.appendChild(subject);
-
 }
 
 
 function calculateSGPA() {
 
-    let credits = document.querySelectorAll(".credits");
     let grades = document.querySelectorAll(".grade");
 
-    let totalCredits = 0;
+    let credits = document.querySelectorAll(".credits");
+
     let totalPoints = 0;
 
-    for (let i = 0; i < credits.length; i++) {
+    let totalCredits = 0;
+
+
+    if (grades.length === 0) {
+
+        alert("Please add at least one subject.");
+
+        return;
+    }
+
+
+    for (let i = 0; i < grades.length; i++) {
+
+        let grade = Number(grades[i].value);
 
         let credit = Number(credits[i].value);
-        let grade = Number(grades[i].value);
+
 
         if (credit <= 0) {
 
-            document.getElementById("result").innerHTML =
-                "❌ Please enter credits for every subject.";
+            alert("Please enter valid credits for all subjects.");
 
             return;
         }
 
-        totalCredits += credit;
 
-        totalPoints += credit * grade;
+        totalPoints += grade * credit;
+
+        totalCredits += credit;
 
     }
 
@@ -364,20 +200,31 @@ function calculateSGPA() {
     let sgpa = totalPoints / totalCredits;
 
 
-    document.getElementById("result").innerHTML =
-        "Your SGPA is: <b>" + sgpa.toFixed(2) + "</b>";
+    let result = document.getElementById("result");
+
+    result.innerHTML =
+        "Your SGPA is: <b>" +
+        sgpa.toFixed(2) +
+        "</b>";
+
+    result.style.display = "block";
 
 }
 
 
 function clearCalculator() {
 
-    location.reload();
+    document.getElementById("subjects").innerHTML = "";
+
+    document.getElementById("result").innerHTML = "";
+
+    document.getElementById("result").style.display = "none";
+
+    subjectCount = 0;
 
 }
 
 </script>
 
 </body>
-
 </html>
